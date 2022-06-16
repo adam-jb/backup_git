@@ -4,8 +4,16 @@ Provision cloud function to clone internal Git repository and store it in GCS.
 
 Losely based on https://towardsdatascience.com/deploy-cloud-functions-on-gcp-with-terraform-111a1c4a9a88
 
-
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 Delete a cloud function: needs to know the region
