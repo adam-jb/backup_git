@@ -37,7 +37,7 @@ resource "google_storage_bucket_object" "zip" {
 
 ## Make service account and add IAM roles
 resource "google_service_account" "sa-name" {
-  account_id = "sa-name-cloud-function2
+  account_id = "sa-name-cloud-function2"
   display_name = "SA"
 }
 
