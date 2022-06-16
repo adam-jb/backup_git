@@ -45,18 +45,18 @@ resource "google_cloudfunctions_function" "function" {
 
 
     # These are needed if your cloud function access a secret
-    secret_environment_variables {         # Note lack of '=' for assignment
-        key               = "PAT_token"    # Name of the environment it returns. Not sure we use this, but including it enables python secrets manager to access secrets
+    secret_volumes {         # Note lack of '=' for assignment
+        mount_path        = "/etc/secrets"    # directory to secret you chose
         secret            = "PAT_token"    # ID of the secret
         version           = 1
     }
 
 
-    # set max time to provision
+    # set max time to provision. Default is 5 mins for all of these
     timeouts {
-        create = "1m"
-        update = "1m"
-        delete = "1m"
+        create = "6m"
+        update = "6m"
+        delete = "6m"
       }
 
 
