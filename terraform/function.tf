@@ -44,6 +44,10 @@ resource "google_cloudfunctions_function" "function" {
     trigger_http          = true
 
 
+    # Setting my email as service account as it has the most permissions
+    service_account_email = adam.bricknell@dft.gov.uk
+
+
     # These are needed if your cloud function access a secret
     secret_volumes {         # Note lack of '=' for assignment
         mount_path        = "projects/286910582913/secrets/PAT_token/versions/1"   # directory to secret you chose
@@ -68,7 +72,7 @@ resource "google_cloudfunctions_function" "function" {
 
 
 
-# IAM entry for all users to invoke the function
+# IAM entry for all users to invoke the function. Think this doesn't help as user needs Secrets Manager access too, as my 
 resource "google_cloudfunctions_function_iam_member" "invoker" {
   project        = google_cloudfunctions_function.function.project
   region         = google_cloudfunctions_function.function.region
