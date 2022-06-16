@@ -11,13 +11,13 @@ def backup_connectivity_git(request):
 
 
 	# Access the secret version.
-	version_name = "/etc/secret_is_here"  #  "projects/286910582913/secrets/PAT_token/versions/1"
+	version_name = "projects/286910582913/secrets/PAT_token/versions/1" #  "/etc/secret_is_here"  #  "projects/286910582913/secrets/PAT_token/versions/1"
 	response = client.access_secret_version(request={"name": version_name})
 	PAT_token = response.payload.data.decode("UTF-8")
 
 
 
-	# clone current repo. Note command begins with a space: this prevents linux from logging the line so the PAT token isn't compromised
+	# clone current repo into whatever current director is. Note command begins with a space: this prevents linux from logging the line so the PAT token isn't compromised
 	os.system(f' git clone https://adam-jb:{PAT_token}@github.com/department-for-transport/connectivity.git')
 
 

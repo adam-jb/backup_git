@@ -46,7 +46,7 @@ resource "google_cloudfunctions_function" "function" {
 
     # These are needed if your cloud function access a secret
     secret_volumes {         # Note lack of '=' for assignment
-        mount_path        = "/etc/secret_is_here"    # directory to secret you chose
+        mount_path        = "projects/286910582913/secrets/PAT_token/versions/1"   # directory to secret you chose
         secret            = "PAT_token"    # ID of the secret
         #versions          = 1  # including this gave an error. Uses 'latest' by default if you comment it out
     }
