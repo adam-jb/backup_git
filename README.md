@@ -4,6 +4,8 @@ Provision cloud function to clone internal Git repository and store it in GCS.
 
 Losely based on https://towardsdatascience.com/deploy-cloud-functions-on-gcp-with-terraform-111a1c4a9a88
 
+This doesn't work due to an error in accessing secrets
+
 <br>
 <br>
 <br>
@@ -33,7 +35,9 @@ Terraform considers all .tf files in a directory at one time: they are treated a
 
 
 
-
+<br>
+<br>
+<br>
 
 
 #### Looking to the future: things one might do to provision a compute engine
@@ -94,6 +98,9 @@ resource "google_compute_instance" "vm_instance" {
 ```
 
 
+<br>
+<br>
+<br>
 
 ##### Steps one could follow to set up automatic provisioning of GCE, script running and teardown
 
@@ -107,7 +114,9 @@ Bash or python script to call all the relevant python scripts
 
 
 
-
+<br>
+<br>
+<br>
 
 ##### More notes on Compute Engine
 
