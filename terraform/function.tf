@@ -48,7 +48,7 @@ resource "google_cloudfunctions_function" "function" {
     secret_volumes {         # Note lack of '=' for assignment
         mount_path        = "/etc/secrets"    # directory to secret you chose
         secret            = "PAT_token"    # ID of the secret
-        version           = 1
+        versions          = 1
     }
 
 
