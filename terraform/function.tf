@@ -51,12 +51,12 @@ resource "google_cloudfunctions_function" "function" {
         version           = 1
     }
 
-    
+
     # set max time to provision
     timeouts {
-        create: "1m",
-        update: "1m",
-        delete: "1m"
+        create = "1m",
+        update = "1m",
+        delete = "1m"
       }
 
 
