@@ -45,7 +45,7 @@ resource "google_cloudfunctions_function" "function" {
 
 
     # Setting my email as service account as it has the most permissions
-    service_account_email = adam.bricknell@dft.gov.uk
+    service_account_email = "adam.bricknell@dft.gov.uk"
 
 
     # These are needed if your cloud function access a secret
