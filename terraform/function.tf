@@ -45,11 +45,19 @@ resource "google_cloudfunctions_function" "function" {
 
 
     # These are needed if your cloud function access a secret
-    secret_environment_variables = {
+    secret_environment_variables {         # Note lack of '=' for assignment
         key               = "PAT_token"    # Name of the environment it returns. Not sure we use this, but including it enables python secrets manager to access secrets
         secret            = "PAT_token"    # ID of the secret
         version           = 1
     }
+
+    
+    # set max time to provision
+    timeouts {
+        create: "1m",
+        update: "1m",
+        delete: "1m"
+      }
 
 
     ## Might let you specify the trigger url
