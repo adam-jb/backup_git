@@ -7,6 +7,14 @@ data "archive_file" "source" {
 
 
 
+# make a random ID to call, so each time we provision a resource the name is different
+resource "random_id" "id" {
+      byte_length = 8
+}
+# ${random_id.id.hex}   # this would get you different numbers
+
+
+
 # Add source code zip to the Cloud Function's bucket
 resource "google_storage_bucket_object" "zip" {
     source       = data.archive_file.source.output_path
@@ -29,7 +37,7 @@ resource "google_storage_bucket_object" "zip" {
 
 ## Make service account and add IAM roles
 resource "google_service_account" "sa-name" {
-  account_id = "sa-name-cloud-function"
+  account_id = "sa-name-cloud-function2
   display_name = "SA"
 }
 
@@ -39,15 +47,15 @@ resource "google_cloudfunctions_function_iam_member" "invoker" {
   cloud_function = google_cloudfunctions_function.function.name
 
   role   = "roles/cloudfunctions.invoker"
-  member = "serviceAccount:${google_service_account.sa-name-cloud-function.email}"
+  member = "serviceAccount:${google_service_account.sa-name-cloud-function2.email}"
 }
 
 resource "google_secret_manager_secret_iam_member" "member" {
   project = google_secret_manager_secret.secret-basic.project
   secret_id = google_secret_manager_secret.secret-basic.secret_id
-  
+
   role = "roles/secretmanager.secretAccessor"
-  member = "serviceAccount:${google_service_account.sa-name-cloud-function.email}"
+  member = "serviceAccount:${google_service_account.sa-name-cloud-function2.email}"
 }
 
 
@@ -75,7 +83,7 @@ resource "google_cloudfunctions_function" "function" {
 
 
     # Setting my email as service account as it has the most permissions
-    service_account_email = "${google_service_account.sa-name-cloud-function.email}"
+    service_account_email = "${google_service_account.sa-name-cloud-function2.email}"
 
 
     # These are needed if your cloud function access a secret
