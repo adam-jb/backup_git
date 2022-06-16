@@ -36,7 +36,8 @@ resource "google_cloudfunctions_function" "function" {
     # Must match the function name in the cloud function `main.py` source code
     entry_point           = "backup_connectivity_git"
 
-    https_trigger_url     = "https://us-central1-dft-dst-prt-connectivitymetric.cloudfunctions.net/function-backup-connectivity-git"
+    trigger_http          = true
+    #https_trigger_url    = "https://us-central1-dft-dst-prt-connectivitymetric.cloudfunctions.net/function-backup-connectivity-git"
     
 
     # OG event triggers. Http event trigger is an alternative (you need either http trigger OR an event trigger, as per https://cloud.google.com/functions/docs/calling/)
