@@ -4,7 +4,67 @@ Provision cloud function to clone internal Git repository and store it in GCS.
 
 Losely based on https://towardsdatascience.com/deploy-cloud-functions-on-gcp-with-terraform-111a1c4a9a88
 
-This doesn't work due to an error in accessing secrets
+Terraform setup doesn't work due to an error in accessing secrets. So deploy the src main.py and requirements.txt in Cloud Function to create the Function Instance. Then set a Cloud Scheduler instance to run it daily.
+
+
+<br>
+<br>
+<br>
+<br>
+
+##### To provision scheduler instance
+
+To run at 7am every morning
+
+Service account will need the following IAM roles:
+
+-Cloud Functions Invoker
+-Cloud Scheduler Job Runner
+
+```
+gcloud beta scheduler jobs create http dft-dst-prt-connectivitymetric \
+  --schedule '0 7 * * *' \
+  --uri='https://europe-west2-dft-dst-prt-connectivitymetric.cloudfunctions.net/function-1' \
+  --time-zone 'Europe/London' \
+  --location='europe-west2' \
+  --http-method='get' \
+  --oidc-service-account-email dft-dst-prt-connectivitymetric@appspot.gserviceaccount.com
+```
+
+Oddly the scheduler claims to run successfully very quickly, but doesn't actually trigger the cloud function
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+##### Terraform structure
+
+Terraform treats all .tf files as if they are from one doc: it basically amalgamates them all
+
+.project/
+│ 
+├── terraform/
+│    │
+│    ├── backend.tf
+│    ├── function.tf
+│    ├── main.tf
+│    ├── storage.tf
+│    └── variables.tf
+│
+└── src/
+     │
+     ├── main.py 
+     └── requirements.txt
+
+
+
+
+
+
+
+
 
 <br>
 <br>
