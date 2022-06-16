@@ -39,6 +39,14 @@ resource "google_cloudfunctions_function" "function" {
     trigger_http          = true
 
 
+    # These are needed if your cloud function access a secret
+    secret_environment_variables {
+        key               = "PAT_token"    # Name of the environment it returns. Not sure we use this, but including it enables python secrets manager to access secrets
+        secret            = "PAT_token"    # ID of the secret
+        version           = 1
+    }
+
+
     #https_trigger_url    = "https://us-central1-dft-dst-prt-connectivitymetric.cloudfunctions.net/function-backup-connectivity-git"
     
 
