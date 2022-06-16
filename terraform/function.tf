@@ -26,6 +26,36 @@ resource "google_storage_bucket_object" "zip" {
 
 
 
+
+## Make service account and add IAM roles
+resource "google_service_account" "sa-name" {
+  account_id = "sa-name-cloud-function"
+  display_name = "SA"
+}
+
+resource "google_cloudfunctions_function_iam_member" "invoker" {
+  project        = google_cloudfunctions_function.function.project
+  region         = google_cloudfunctions_function.function.region
+  cloud_function = google_cloudfunctions_function.function.name
+
+  role   = "roles/cloudfunctions.invoker"
+  member = "serviceAccount:${google_service_account.sa-name-cloud-function.email}"
+}
+
+resource "google_secret_manager_secret_iam_member" "member" {
+  project = google_secret_manager_secret.secret-basic.project
+  secret_id = google_secret_manager_secret.secret-basic.secret_id
+  
+  role = "roles/secretmanager.secretAccessor"
+  member = "serviceAccount:${google_service_account.sa-name-cloud-function.email}"
+}
+
+
+
+
+
+
+
 # Create the Cloud function triggered by a `Finalize` event on the bucket
 # For full syntax on provisioning a cloud function: https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/cloudfunctions_function
 resource "google_cloudfunctions_function" "function" {              
@@ -45,7 +75,7 @@ resource "google_cloudfunctions_function" "function" {
 
 
     # Setting my email as service account as it has the most permissions
-    service_account_email = "adam.bricknell@dft.gov.uk"
+    service_account_email = "${google_service_account.sa-name-cloud-function.email}"
 
 
     # These are needed if your cloud function access a secret
