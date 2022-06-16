@@ -110,7 +110,8 @@ resource "google_cloudfunctions_function" "function" {
 
 
 
-# IAM entry for all users to invoke the function. Think this doesn't help as user needs Secrets Manager access too, as my 
+# IAM entry for all users to invoke the function. Think not needed
+/*
 resource "google_cloudfunctions_function_iam_member" "invoker" {
   project        = google_cloudfunctions_function.function.project
   region         = google_cloudfunctions_function.function.region
@@ -119,7 +120,7 @@ resource "google_cloudfunctions_function_iam_member" "invoker" {
   role   = "roles/cloudfunctions.invoker"
   member = "allUsers"
 }
-
+*/
 
 
 
