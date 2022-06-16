@@ -5,6 +5,8 @@ data "archive_file" "source" {
     output_path = "/tmp/function.zip"
 }
 
+
+
 # Add source code zip to the Cloud Function's bucket
 resource "google_storage_bucket_object" "zip" {
     source       = data.archive_file.source.output_path
@@ -22,7 +24,10 @@ resource "google_storage_bucket_object" "zip" {
     ]
 }
 
+
+
 # Create the Cloud function triggered by a `Finalize` event on the bucket
+# For full syntax on provisioning a cloud function: https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/cloudfunctions_function
 resource "google_cloudfunctions_function" "function" {              
     name                  = "function-backup-connectivity-git"      # function name
     runtime               = "python38"  # of course changeable
@@ -40,23 +45,17 @@ resource "google_cloudfunctions_function" "function" {
 
 
     # These are needed if your cloud function access a secret
-    secret_environment_variables {
+    secret_environment_variables = {
         key               = "PAT_token"    # Name of the environment it returns. Not sure we use this, but including it enables python secrets manager to access secrets
         secret            = "PAT_token"    # ID of the secret
         version           = 1
     }
 
 
+    ## Might let you specify the trigger url
     #https_trigger_url    = "https://us-central1-dft-dst-prt-connectivitymetric.cloudfunctions.net/function-backup-connectivity-git"
     
 
-    # OG event triggers. Http event trigger is an alternative (you need either http trigger OR an event trigger, as per https://cloud.google.com/functions/docs/calling/)
-    /*
-    event_trigger {
-        event_type = "google.storage.object.finalize"
-        resource   = "${var.project_id}-input"
-    }
-    */
 }
 
 
