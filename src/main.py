@@ -11,7 +11,7 @@ def backup_connectivity_git(request):
 
 
 	# Access the secret version.
-	version_name = "projects/286910582913/secrets/PAT_token/versions/1"
+	version_name = "/etc/secret_is_here"  #  "projects/286910582913/secrets/PAT_token/versions/1"
 	response = client.access_secret_version(request={"name": version_name})
 	PAT_token = response.payload.data.decode("UTF-8")
 
