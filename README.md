@@ -31,7 +31,7 @@ gcloud beta scheduler jobs create http dft-dst-prt-connectivitymetric \
   --oidc-service-account-email dft-dst-prt-connectivitymetric@appspot.gserviceaccount.com
 ```
 
-Oddly the scheduler claims to run successfully very quickly, but doesn't actually trigger the cloud function
+When forcing a run the scheduler claims to run successfully very quickly, but doesn't actually trigger the cloud function. However it does trigger the cloud function at the scheduled time
 
 <br>
 <br>
@@ -43,6 +43,7 @@ Oddly the scheduler claims to run successfully very quickly, but doesn't actuall
 
 Terraform treats all .tf files as if they are from one doc: it basically amalgamates them all
 
+```
 .project/
 │ 
 ├── terraform/
@@ -57,7 +58,7 @@ Terraform treats all .tf files as if they are from one doc: it basically amalgam
      │
      ├── main.py 
      └── requirements.txt
-
+```
 
 
 
